@@ -389,14 +389,7 @@ func isLabelCurried(c prometheus.Collector, label string) bool {
 	return true
 }
 
-// emptyLabels is a one-time allocation for non-partitioned metrics to avoid
-// unnecessary allocations on each request.
-var emptyLabels = prometheus.Labels{}
-
 func labels(code, method bool, reqMethod string, status int, extraMethods ...string) prometheus.Labels {
-	if !(code || method) {
-		return emptyLabels
-	}
 	labels := prometheus.Labels{}
 
 	if code {
